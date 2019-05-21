@@ -19,10 +19,11 @@ from bs4 import BeautifulSoup
 
 
 def relpath2abspath(relpath, root_dir):
+    # NOTE: Encode local src only
     if relpath.startswith('http'):
         return relpath
 
-    if relpath.startswith('/'):
+    if relpath.startswith('/') or relpath.startswith('\\'):
         if os.path.exists(relpath):
             return relpath
 
@@ -52,6 +53,8 @@ def main():
             continue
         else:
             ext = img_path.split('.')[-1].lower()
+
+            # NOTE: The data URI must match the MIME type
             ext = 'jpeg' if ext == 'jpg' else ext
 
             t.attrs['src'] = ''.join([def_img_data_scheme.format(ext), img_b64.decode('utf-8')])
