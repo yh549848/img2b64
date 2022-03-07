@@ -56,6 +56,7 @@ def main():
 
             # NOTE: The data URI must match the MIME type
             ext = 'jpeg' if ext == 'jpg' else ext
+            ext = 'svg+xml' if ext == 'svg' else ext
 
             t.attrs['src'] = ''.join([def_img_data_scheme.format(ext), img_b64.decode('utf-8')])
 
